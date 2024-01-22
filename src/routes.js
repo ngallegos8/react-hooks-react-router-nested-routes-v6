@@ -1,3 +1,4 @@
+import App from "./App";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -6,25 +7,34 @@ import ErrorPage from "./pages/ErrorPage";
 
 const routes = [
   {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />
-  }, 
-  {
-    path: "/about",
-    element: <About />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "/profile/:id",
-    element: <UserProfile />,
-    errorElement: <ErrorPage />
+    path: "/", // the url
+    element: <App />, // which component to load
+    errorElement: <ErrorPage />, // which component to load on error
+    children: [ // child routes
+      {
+        path: "/", // the url
+        element: <Home />, // which component to load
+        children: [
+          {
+            path: "/users/:id", // the url
+            element: <UserProfile /> // which component to load
+          }
+        ]
+      },
+      {
+        path: "/about", // the url
+        element: <About /> // which component to load
+      },
+      {
+        path: "/login", // the url
+        element: <Login /> // which component to load
+      },
+      {
+        path: "/profile", // the url
+        element: <UserProfile /> // which component to load
+      }
+    ]
   }
-];
+]
 
 export default routes;
